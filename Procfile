@@ -1,0 +1,1 @@
+web: gunicorn barstocktake.wsgi --log-file -

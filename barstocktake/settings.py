@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +26,12 @@ SECRET_KEY = 'y*_&ov5a38km1*cjc@pb2&&b#@ea6t#71+0+moseed1kcshw@%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '0.0.0.0',
+    'localhost',
+    '127.0.0.1',
+    'barstocktake.herokuapp.com/'
+]
 
 
 # Application definition
@@ -76,8 +82,8 @@ WSGI_APPLICATION = 'barstocktake.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'stocktakedb',
-        "USER":'andystock',
+        'NAME': 'portfoliodb',
+        "USER":'postgres',
         'PASSWORD':'l33tc0d3r',
         'HOST':'localhost',
         'PORT':'5432',
@@ -123,6 +129,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
